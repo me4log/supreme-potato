@@ -10,9 +10,9 @@ type __article struct {
 	article     *model.Article
 	XMLName     xml.Name `xml:"offer"`
 	Id          int64    `xml:"id"`
-	OfferId     string   `xml:"offer_id"`
+	OfferId     string   `xml:"offer_id,attr"`
 	GoodsId     string   `xml:"goods_id"`
-	Price       int32    `xml:"price"`
+	Price       int32    `xml:"prices>price"`
 	Description string   `xml:"description"`
 }
 
