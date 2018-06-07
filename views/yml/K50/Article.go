@@ -2,7 +2,7 @@ package K50
 
 import (
 	"encoding/xml"
-	"ru.goods/feeds/model"
+	"goods.ru/feeds/model"
 	"strconv"
 )
 
@@ -10,13 +10,13 @@ type __article struct {
 	article     *model.Article
 	XMLName     xml.Name `xml:"offer"`
 	Id          int64    `xml:"id"`
-	OfferId     string   `xml:"offer_id,attr"`
+	OfferId     string   `xml:"id,attr"`
 	GoodsId     string   `xml:"goods_id"`
 	Price       int32    `xml:"prices>price"`
 	Description string   `xml:"description"`
 }
 
-var Format = func(article *model.Article) *interface{} {
+var FormatArticle = func(article *model.Article) *interface{} {
 
 	var result interface{} = __article{
 		article:     article,

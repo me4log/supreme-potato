@@ -1,23 +1,20 @@
 package services
 
 import (
-	"ru.goods/feeds/views/yml"
-	"ru.goods/feeds/views/yml/K50"
+	"goods.ru/feeds/views/yml"
 	"io"
 )
 
 type FeedService struct {
 }
 
-func (FeedService *FeedService) CreateFeed(writer io.Writer, dataService *DataService) (error) {
+func (FeedService *FeedService) CreateFeed(writer io.Writer, dataService *DataService, formatter *yml.Formatter) (error) {
 
-	articles, err := dataService.getData()
+	articles, categories, err := dataService.getData()
 	if err != nil {
 		return err
 	}
-
-	K50formatter := yml.Formatter{&K50.Format}
-	feed, err := yml.CreateFeed(K50formatter, articles)
+	feed, err := yml.CreateFeed(formatter, articles, categories)
 	if err != nil {
 		return err
 	}

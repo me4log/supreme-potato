@@ -2,21 +2,29 @@ package yml
 
 import (
 	"encoding/xml"
-	"ru.goods/feeds/model"
+	"goods.ru/feeds/model"
 	"io"
 )
 
 type Feed struct {
-	XMLName  xml.Name      `xml:"yml_catalog"`
-	Articles []interface{} `xml:"offers"`
+	XMLName    xml.Name      `xml:"yml_catalog"`
+	Categories []interface{} `xml:"categories>category"`
+	Articles   []interface{} `xml:"offers>offer"`
+
 }
 
-func CreateFeed(formatter Formatter, articles []model.Article) (*Feed, error) {
+func CreateFeed(formatter *Formatter, articles []model.Article, categories []model.Category) (*Feed, error) {
 
 	feed := Feed{Articles: make([]interface{}, len(articles))}
+
+	for _, categories := range categories {
+		feed.Categories = append(feed.Categories, (*formatter.CategoryFormatter)(&categories))
+	}
+
 	for _, article := range articles {
 		feed.Articles = append(feed.Articles, (*formatter.ArticleFormatter)(&article))
 	}
+
 	return &feed, nil
 }
 
